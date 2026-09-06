@@ -6,3 +6,5 @@ psycopg2-binary>=2.9
 redis>=5.0
 python-jose[cryptography]>=3.3
 passlib[argon2]>=1.7
+qiskit>=1.0
+qiskit-ibm-runtime>=0.29

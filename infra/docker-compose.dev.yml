@@ -23,13 +23,21 @@ services:
     volumes: ["minio-data:/data"]
 
   api:
-    build: ../services/api
+    build:
+      context: ..
+      dockerfile: services/api/Dockerfile
     env_file: ../.env
     depends_on: [postgres, redis]
     ports: ["8000:8000"]
+    volumes:
+      - ../services/api/app:/app/app
+      - ../integrations/quant-adapter:/app/integrations/quant-adapter
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
   worker:
-    build: ../services/worker
+    build:
+      context: ..
+      dockerfile: services/worker/Dockerfile
     env_file: ../.env
     environment:
       QUANT_ADAPTER_MODE: mock

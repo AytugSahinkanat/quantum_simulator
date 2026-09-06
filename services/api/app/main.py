@@ -7,6 +7,8 @@ gerçek çalışma services/worker içinde yapılır.
 """
 from fastapi import FastAPI
 
+from app.routers import calibration, circuits
+
 app = FastAPI(
     title="QuanT Dijital İkiz API",
     version="0.1.0",
@@ -29,7 +31,7 @@ def readiness() -> dict:
     return {"status": "not_implemented"}
 
 
-# TODO(SS-04): app.include_router(circuits.router)      — devre girişi & doğrulama
-# TODO(SS-05): app.include_router(calibration.router)    — snapshot seçimi/kaydı
+app.include_router(circuits.router)  # SS-04 — devre girişi & doğrulama (FR-01..FR-04)
+app.include_router(calibration.router)  # SS-05 — açık kaynak kalibrasyon (fake backend)
 # TODO(SS-06/07): app.include_router(predictions.router) — simülasyon & ML tahmini
 # TODO(SS-09): app.include_router(reports.router)        — metrik & rapor

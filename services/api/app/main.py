@@ -7,6 +7,7 @@ gerçek çalışma services/worker içinde yapılır.
 """
 from fastapi import FastAPI
 
+from app.db import Base, engine
 from app.routers import calibration, circuits
 
 app = FastAPI(
@@ -29,6 +30,12 @@ def readiness() -> dict:
     TODO: Postgres / Redis / nesne deposu / aktif model kontrolü eklenecek (SS-10, SS-11).
     """
     return {"status": "not_implemented"}
+
+
+@app.on_event("startup")
+def on_startup() -> None:
+    """MVP şema kurulumu — bkz. app/db.py başlığındaki Alembic notu."""
+    Base.metadata.create_all(bind=engine)
 
 
 app.include_router(circuits.router)  # SS-04 — devre girişi & doğrulama (FR-01..FR-04)

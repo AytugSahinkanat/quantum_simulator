@@ -40,4 +40,6 @@ class CircuitValidationResult(BaseModel):
     circuit_hash: Optional[str] = None
     features: Optional[CircuitFeatures] = None
     simulation_risk: Optional[str] = None
+    analysis_session_id: Optional[str] = None
+    persisted: bool = False
     errors: list[ValidationError_] = []

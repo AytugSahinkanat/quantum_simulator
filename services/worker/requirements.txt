@@ -1,0 +1,7 @@
+qiskit>=1.0
+qiskit-aer>=0.14
+scikit-learn>=1.4
+redis>=5.0
+sqlalchemy>=2.0
+psycopg2-binary>=2.9
+boto3>=1.34
